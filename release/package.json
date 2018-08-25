@@ -9,14 +9,19 @@
       "Other"
     ],
     "activationEvents": [
-      "onCommand:polyglott.sayHello"
+      "onCommand:polyglott.hello",
+      "onCommand:polyglott.choose"
     ],
     "main": "./polyglott",
     "contributes": {
       "commands": [
         {
-          "command": "polyglott.sayHello",
-          "title": "Hello World"
+          "command": "polyglott.hello",
+          "title": "Polyglott: Hello"
+        },
+        {
+          "command": "polyglott.choose",
+          "title": "Polyglott: Choose"
         }
       ]
     }

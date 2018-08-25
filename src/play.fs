@@ -5,10 +5,10 @@ module Play  =
   open Fable.Import.vscode
   open Ionide.VSCode.Helpers
   
-  let hello () =
+  let choose () =
     promise {
-      let! a= window.showInformationMessage("Hello4", "a" ,"b")
-      printfn "chosen3 %A" a
+      let! a= window.showInformationMessage("Choose", "a" ,"b")
+      printfn "chosen %A" a
     } |> ignore
 
   // let showQuickPick () = 
@@ -18,6 +18,6 @@ module Play  =
   //     printfn "selected %s" r } 
 
   let activate (context : ExtensionContext) = 
-    commands.registerCommand("polyglott.hello", hello |> unbox<Func<obj,obj>> )
+    commands.registerCommand("polyglott.choose", choose |> unbox<Func<obj,obj>> )
     |> context.subscriptions.Add 
 
