@@ -19,9 +19,9 @@ console.log("Bundling for " + (isProduction ? "production" : "development") + ".
 module.exports = {
   target: 'node',
   devtool: "source-map",
-  entry: resolve('./src/Extension.fsproj'),
+  entry: resolve('./src/Polyglott.fsproj'),
   output: {
-    filename: 'extension.js',
+    filename: 'polyglott.js',
     path: resolve('./release'),
     libraryTarget: 'commonjs'
   },

@@ -1,21 +1,21 @@
 {
-    "name": "fabledemo",
-    "publisher": "fabledemo",
+    "name": "polyglott",
+    "publisher": "fbehrens@gmail.com",
     "version": "0.0.1",
     "engines": {
-      "vscode": "^0.10.10"
+      "vscode": "^0.12.1"
     },
     "categories": [
       "Other"
     ],
     "activationEvents": [
-      "onCommand:extension.sayHello"
+      "onCommand:polyglott.sayHello"
     ],
-    "main": "./extension",
+    "main": "./polyglott",
     "contributes": {
       "commands": [
         {
-          "command": "extension.sayHello",
+          "command": "polyglott.sayHello",
           "title": "Hello World"
         }
       ]

@@ -5,6 +5,6 @@ open Fable.Import
 open Fable.Import.vscode
 
 let activate (context : vscode.ExtensionContext) =
-    vscode.commands.registerCommand("extension.sayHello", fun _ ->
-        vscode.window.showInformationMessage "Hello world4!" |> unbox )
+    vscode.commands.registerCommand("polyglott.sayHello", fun _ ->
+        vscode.window.showInformationMessage "Hello world7!" |> unbox )
     |> context.subscriptions.Add
