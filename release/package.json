@@ -15,14 +15,8 @@
     "main": "./polyglott",
     "contributes": {
       "commands": [
-        {
-          "command": "polyglott.hello",
-          "title": "Polyglott: Hello"
-        },
-        {
-          "command": "polyglott.choose",
-          "title": "Polyglott: Choose"
-        }
+        { "command": "polyglott.hello", "title": "Polyglott: Hello" },
+        { "command": "polyglott.choose", "title": "Polyglott: Choose" }
       ]
     }
   }
