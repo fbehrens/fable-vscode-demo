@@ -10,12 +10,14 @@
     ],
     "activationEvents": [
       "onCommand:polyglott.hello",
+      "onCommand:polyglott.quickPick",
       "onCommand:polyglott.choose"
     ],
     "main": "./polyglott",
     "contributes": {
       "commands": [
         { "command": "polyglott.hello", "title": "Polyglott: Hello" },
+        { "command": "polyglott.quickPick", "title": "Polyglott: quickPick" },
         { "command": "polyglott.choose", "title": "Polyglott: Choose" }
       ]
     }
