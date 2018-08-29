@@ -16,10 +16,7 @@ Target.create "YarnInstall" <| fun _ ->
     Yarn.install id
 
 Target.create "DotnetRestore" <| fun _ ->
-    DotNet.restore (fun o -> {o with 
-                                Common = {DotNet.Options.Create() with 
-                                            WorkingDirectory = "src"}} ) ""
-
+    DotNet.restore (DotNet.Options.withWorkingDirectory("src")) ""
 
 // let runFable additionalArgs =
 //     let cmd = "fable webpack -- --config ./webpack.config.js " + additionalArgs
