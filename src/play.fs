@@ -13,7 +13,7 @@ module Play  =
     } |> ignore
 
   let hello () =
-    vscode.window.showInformationMessage "Hello" |> ignore
+    vscode.window.showInformationMessage "Hello1" |> ignore
 
   let quickPick () = 
     promise {

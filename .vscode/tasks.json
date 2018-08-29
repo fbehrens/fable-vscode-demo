@@ -6,13 +6,13 @@
     "type": "shell",
     "tasks": [
         {
-            "command": "${workspaceRoot}/build.sh",
-            "windows": {
-                "command": "${workspaceRoot}/build.cmd"
-            },
-            "taskName": "Build",
+            "label": "Watch",
+            "command": "fake",
             "args": [
-                "Default"
+                "run",
+                "${workspaceRoot}/build.fsx",
+                "-t",
+                "Watch"
             ],
             "group": {
                 "kind": "build",
@@ -20,28 +20,13 @@
             }
         },
         {
-            "command": "${workspaceRoot}/build.sh",
-            "windows": {
-                "command": "${workspaceRoot}/build.cmd"
-            },
-            "taskName": "Full Build",
+            "label": "Build",
+            "command": "fake",
             "args": [
-                "Build"
+                "run",
+                "${workspaceRoot}/build.fsx"
             ],
             "group": "build"
-        },
-        {
-            "command": "${workspaceRoot}/build.sh",
-            "windows": {
-                "command": "${workspaceRoot}/build.cmd"
-            },
-            "taskName": "Watch",
-            "args": [
-                "Watch"
-            ],
-            "group": "build",
-            "isBackground": true,
-            "problemMatcher": []
         }
     ]
 }

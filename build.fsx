@@ -1,53 +1,38 @@
-// --------------------------------------------------------------------------------------
-// FAKE build script
-// --------------------------------------------------------------------------------------
+#r "paket: groupref build //"
+#load "./.fake/build.fsx/intellisense.fsx"
 
-#I "packages/build/FAKE/tools"
-#r "FakeLib.dll"
-open System
-open System.Diagnostics
-open System.IO
-open Fake
-open Fake.YarnHelper
-open Fake.ZipHelper
+open Fake.Core
+open Fake.IO
+open Fake.JavaScript
+open Fake.DotNet
 
+Target.create "Clean" <| fun _ ->
+  Shell.cleanDir "./temp"
+  Shell.copy "release" ["README.md"; "LICENSE.md"]
+  Shell.copyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
 
-// --------------------------------------------------------------------------------------
-// Build the Generator project and run it
-// --------------------------------------------------------------------------------------
+Target.description "Install javaScript dependencies"
+Target.create "YarnInstall" <| fun _ ->
+    Yarn.install id
 
-Target "Clean" (fun _ ->
-    CleanDir "./temp"
-    CopyFiles "release" ["README.md"; "LICENSE.md"]
-    CopyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
-)
-
-Target "YarnInstall" <| fun () ->
-    Yarn (fun p -> { p with Command = Install Standard })
-
-Target "DotNetRestore" <| fun () ->
-    DotNetCli.Restore (fun p -> { p with WorkingDir = "src" } )
+Target.create "DotnetRestore" <| fun _ ->
+    DotNet.restore (DotNet.Options.withWorkingDirectory("src")) ""
 
 let runFable additionalArgs =
-    let cmd = "fable webpack -- --config ./webpack.config.js " + additionalArgs
-    DotNetCli.RunCommand (fun p -> { p with WorkingDir = "src" } ) cmd
+    let cmd = "fable webpack -- --config ./webpack.config.js " 
+    let r = DotNet.exec (DotNet.Options.withWorkingDirectory("src")) cmd additionalArgs
+    printfn "result=%A" r
 
-Target "RunScript" (fun _ ->
+Target.create "RunScript" <| fun _ ->
     // Ideally we would want a production (minized) build but UglifyJS fail on PerMessageDeflate.js as it contains non-ES6 javascript.
     runFable ""
-)
 
-Target "Watch" (fun _ ->
+Target.create "Watch" <| fun _ ->
     runFable "--watch"
-)
 
+Target.create "Default" ignore
 
-// --------------------------------------------------------------------------------------
-// Run generator by default. Invoke 'build <Target>' to override
-// --------------------------------------------------------------------------------------
-
-Target "Default" DoNothing
-
+open Fake.Core.TargetOperators
 "YarnInstall" ?=> "RunScript"
 "DotNetRestore" ?=> "RunScript"
 
@@ -55,4 +40,4 @@ Target "Default" DoNothing
 ==> "RunScript"
 ==> "Default"
 
-RunTargetOrDefault "Default"
+Target.runOrDefault "Default"

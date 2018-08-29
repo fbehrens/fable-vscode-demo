@@ -13,10 +13,6 @@ github ionide/ionide-vscode-helpers src/Helpers.fs
 
 group build
     source https://www.nuget.org/api/v2
-    nuget Fake
-
-group build5
-    source https://www.nuget.org/api/v2
     nuget Fake.IO.FileSystem
     nuget Fake.Core.Target
     nuget Fake.JavaScript.Yarn
