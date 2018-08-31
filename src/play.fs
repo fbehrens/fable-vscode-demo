@@ -4,26 +4,33 @@ module Play  =
   open Fable.Core
   open Fable.Core.JsInterop
   open Fable.Import
+  open vscode
   open Ionide.VSCode.Helpers
   
   let choose () =
+  
     promise {
-      let! a= vscode.window.showInformationMessage("Choose", "a" ,"b")
+      let items = new  ResizeArray<string>()
+      items.Add "a"
+      items.Add "b"
+      let! a= Vscode.window.showInformationMessage("Choose",items) |> Promise.fromThenable
       printfn "chosen %A" a
     } |> ignore
 
   let hello () =
-    vscode.window.showInformationMessage "Hello1" |> ignore
+    let items = new  ResizeArray<string>()
+    Vscode.window.showInformationMessage("Hello1",items)
+    |> ignore
 
   let quickPick () = 
     promise {
       let ra = ["essen";"trinken"] |>ResizeArray 
-      let opts = createEmpty<vscode.QuickPickOptions>
-      let! r = vscode.window.showQuickPick( ra |> U2.Case1, opts)
-      printfn "selected  %s" r 
+      let opts = createEmpty<Vscode.QuickPickOptions>
+      let! r = Vscode.window.showQuickPick( ra |> U2.Case1, opts) |> Promise.fromThenable
+      printfn "selected  %A" r 
     } |> ignore
 
-  let activate (context : vscode.ExtensionContext) = 
+  let activate (context : Vscode.ExtensionContext) = 
     [ 
       "polyglott.choose", choose
       "polyglott.hello", hello
@@ -31,7 +38,7 @@ module Play  =
     ]
     |> List.iter (fun (name, f) -> 
           printfn "regsterCommand %s" name
-          vscode.commands.registerCommand(name, f |> unbox<Func<obj,obj>> )
+          Vscode.commands.registerCommand(name, f |> unbox<Func<obj,obj>> )
           |> context.subscriptions.Add
        )
 

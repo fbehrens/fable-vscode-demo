@@ -4,11 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Fable.Import.VSCode.fs" />
-    <Compile Include="..\paket-files\ionide\ionide-vscode-helpers\src\Helpers.fs">
-      <Paket>True</Paket>
-      <Link>paket-files/Helpers.fs</Link>
-    </Compile>
+    <Compile Include="vscode.fs" />
+    <Compile Include="Helpers.fs" />
     <None Include="paket.references" />
     <Compile Include="play.fs" />
     <Compile Include="main.fs" />

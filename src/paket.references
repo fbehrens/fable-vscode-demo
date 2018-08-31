@@ -4,5 +4,3 @@ FSharp.Core
 Fable.Core
 Fable.Import.Node
 Fable.Import.Browser
-
-File: Helpers.fs
