@@ -2,15 +2,11 @@ namespace Polyglott
 open Fable.Core
 open Fable.Import
 open vscode.Vscode
+open Ionide.VSCode.Helpers
 module Main=
     let activate (context : ExtensionContext) =
-        //Play.activate context
-        let ra = new  ResizeArray<string>()
-        let sayHello () = window.showInformationMessage("Hello 1", ra ) |> ignore
-
-        let disposable = commands.registerCommand("polyglott.hello", sayHello |> unbox )
-        context.subscriptions.Add(disposable)
+        Play.activate context
         
-  
-        // Vscode.Context.subscriptions.Add(disposable)
-
+        // let disposable = commands.registerCommand("polyglott.hello", sayHello |> unbox )
+        // context.subscriptions.Add(disposable)
+        
