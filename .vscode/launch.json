@@ -3,8 +3,7 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-            "preLaunchTask": "Build",
-			"name": "Build and Launch Extension",
+			"name": "Launch Only",
 			"type": "extensionHost",
 			"runtimeExecutable": "${execPath}",
 			"args": ["--extensionDevelopmentPath=${workspaceRoot}/release" ],
@@ -13,7 +12,8 @@
 			"sourceMaps": false
 		},
 		{
-			"name": "Launch Only",
+			"preLaunchTask": "Build",
+			"name": "Build and Launch Extension",
 			"type": "extensionHost",
 			"runtimeExecutable": "${execPath}",
 			"args": ["--extensionDevelopmentPath=${workspaceRoot}/release" ],
