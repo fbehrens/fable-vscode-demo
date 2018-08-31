@@ -9,6 +9,7 @@
       "Other"
     ],
     "activationEvents": [
+      "*",
       "onCommand:polyglott.hello",
       "onCommand:polyglott.quickPick",
       "onCommand:polyglott.choose"

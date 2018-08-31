@@ -29,6 +29,7 @@ module Play  =
       printfn "selected  %A" r 
     } |> box
 
+
   let activate (context : ExtensionContext) = 
     [ 
       "polyglott.choose", choose
@@ -36,8 +37,8 @@ module Play  =
       "polyglott.quickPick", quickPick
     ]
     |> List.iter (fun (name, f) -> 
-          printfn "regsterCommand %s" name
           commands.registerCommand(name, f |> unbox )
           |> context.subscriptions.Add
        )
 
+  printfn "activate Polyglott"
