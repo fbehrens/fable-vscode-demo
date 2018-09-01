@@ -13,3 +13,7 @@ The sample for building VSCode extensions using F# and Fable.
 2. `cd src && dotnet restore`
 3. `cd .. && code .`
 4. Press `F5` for single build, or run `Watch` task and `Launch Only` debug configuration for watch mode compilation.
+
+# Import current VsCode Bindings
+
+    ts2fable /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/vscode.d.ts src/vscode.fs

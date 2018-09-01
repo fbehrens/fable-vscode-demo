@@ -4,7 +4,7 @@ open System
 open Fable.Core
 open Fable.Import.JS
 
-let [<Import("*","vscode")>] vscode: Vscode.IExports = jsNative
+let [<Import("*","")>] vscode: Vscode.IExports = jsNative
 
 module Vscode =
     let [<Import("commands","vscode")>] commands: Commands.IExports = jsNative
@@ -692,21 +692,8 @@ module Vscode =
         /// The string representing the corresponding file system path of this Uri.
         /// 
         /// Will handle UNC paths and normalize windows drive letters to lower-case. Also
-        /// uses the platform specific path separator.
-        /// 
-        /// * Will *not* validate the path for invalid characters and semantics.
-        /// * Will *not* look at the scheme of this Uri.
-        /// * The resulting string shall *not* be used for display purposes but
-        /// for disk operations, like `readFile` et al.
-        /// 
-        /// The *difference* to the [`path`](#Uri.path)-property is the use of the platform specific
-        /// path separator and the handling of UNC paths. The sample below outlines the difference:
-        /// ```ts
-        /// const u = URI.parse('file://server/c$/folder/file.txt')
-        /// u.authority === 'server'
-        /// u.path === '/shares/c$/file.txt'
-        /// u.fsPath === '\\server\c$\folder\file.txt'
-        /// ```
+        /// uses the platform specific path separator. Will *not* validate the path for
+        /// invalid characters and semantics. Will *not* look at the scheme of this Uri.
         abstract fsPath: string
         /// <summary>Derive a new Uri from this Uri.
         /// 
@@ -719,10 +706,8 @@ module Vscode =
         /// the empty string.</param>
         abstract ``with``: change: UriWithChange -> Uri
         /// <summary>Returns a string representation of this Uri. The representation and normalization
-        /// of a URI depends on the scheme.
-        /// 
-        /// * The resulting string can be safely used with [Uri.parse](#Uri.parse).
-        /// * The resulting string shall *not* be used for display purposes.</summary>
+        /// of a URI depends on the scheme. The resulting string can be safely used with
+        /// [Uri.parse](#Uri.parse).</summary>
         /// <param name="skipEncoding">Do not percentage-encode the result, defaults to `false`. Note that
         /// the `#` and `?` characters occurring in the path will always be encoded.</param>
         abstract toString: ?skipEncoding: bool -> string
@@ -739,30 +724,14 @@ module Vscode =
     /// A universal resource identifier representing either a file on disk
     /// or another resource, like untitled resources.
     type [<AllowNullLiteral>] UriStatic =
-        /// <summary>Create an URI from a string, e.g. `http://www.msft.com/some/path`,
-        /// `file:///usr/home`, or `scheme:with/path`.</summary>
-        /// <param name="value">The string value of an Uri.</param>
-        abstract parse: value: string -> Uri
         /// <summary>Create an URI from a file system path. The [scheme](#Uri.scheme)
-        /// will be `file`.
-        /// 
-        /// The *difference* between `Uri#parse` and `Uri#file` is that the latter treats the argument
-        /// as path, not as stringified-uri. E.g. `Uri.file(path)` is *not* the same as
-        /// `Uri.parse('file://' + path)` because the path might contain characters that are
-        /// interpreted (# and ?). See the following sample:
-        /// ```ts
-        /// const good = URI.file('/coding/c#/project1');
-        /// good.scheme === 'file';
-        /// good.path === '/coding/c#/project1';
-        /// good.fragment === '';
-        /// 
-        /// const bad = URI.parse('file://' + '/coding/c#/project1');
-        /// bad.scheme === 'file';
-        /// bad.path === '/coding/c'; // path is now broken
-        /// bad.fragment === '/project1';
-        /// ```</summary>
+        /// will be `file`.</summary>
         /// <param name="path">A file system or UNC path.</param>
         abstract file: path: string -> Uri
+        /// <summary>Create an URI from a string. Will throw if the given value is not
+        /// valid.</summary>
+        /// <param name="value">The string value of an Uri.</param>
+        abstract parse: value: string -> Uri
         /// Use the `file` and `parse` factory functions to create new `Uri` objects.
         [<Emit "new $0($1...)">] abstract Create: scheme: string * authority: string * path: string * query: string * fragment: string -> Uri
 
@@ -1475,7 +1444,7 @@ module Vscode =
         /// <param name="name">The name of the symbol.</param>
         /// <param name="kind">The kind of the symbol.</param>
         /// <param name="containerName">The name of the symbol containing the symbol.</param>
-        /// <param name="location">The location of the symbol.</param>
+        /// <param name="location">The the location of the symbol.</param>
         [<Emit "new $0($1...)">] abstract Create: name: string * kind: SymbolKind * containerName: string * location: Location -> SymbolInformation
         /// <summary>~~Creates a new symbol information object.~~</summary>
         /// <param name="name">The name of the symbol.</param>
@@ -2599,10 +2568,6 @@ module Vscode =
         /// Use [`workspaceState`](#ExtensionContext.workspaceState) or
         /// [`globalState`](#ExtensionContext.globalState) to store key value data.
         abstract storagePath: string option with get, set
-        /// An absolute file path of a directory in which the extension can create log files.
-        /// The directory might not exist on disk and creation is up to the extension. However,
-        /// the parent directory is guaranteed to be existent.
-        abstract logPath: string with get, set
 
     /// A memento represents a storage utility. It can store and retrieve
     /// values.
