@@ -16,4 +16,9 @@ The sample for building VSCode extensions using F# and Fable.
 
 # Import current VsCode Bindings
 
+    # osx
     ts2fable /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/vscode.d.ts src/vscode.fs
+
+    # windows
+    ts2fable D:\tools\VSCode\resources\app\out\vs\vscode.d.ts src\vscode.fs
+
