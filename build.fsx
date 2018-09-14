@@ -8,8 +8,8 @@ open Fake.DotNet
 
 Target.create "Clean" <| fun _ ->
   Shell.cleanDir "./temp"
-  Shell.copy "release" ["README.md"; "LICENSE.md"]
-  Shell.copyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
+//   Shell.copy "release" ["README.md"; "LICENSE.md"]
+//   Shell.copyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
 
 Target.description "Install javaScript dependencies"
 Target.create "YarnInstall" <| fun _ ->
